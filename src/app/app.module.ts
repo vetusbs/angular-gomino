@@ -8,13 +8,14 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { DominoComponent } from './domino/domino.component';
 import { DominoService } from './core/domino.service';
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule,
   RouterModule.forRoot([
       { path: '', component: DominoComponent },
     ]) ],
-  declarations: [ AppComponent, HelloComponent, DominoComponent ],
+  declarations: [ AppComponent, HelloComponent, DominoComponent, GridComponent ],
   bootstrap:    [ DominoComponent ],
   providers: [DominoService],
 })
