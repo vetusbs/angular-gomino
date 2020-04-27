@@ -1,0 +1,17 @@
+<hello name="{{ domino?.id }}"></hello>
+<p>
+	Start editing to see some magic happen :)
+</p>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+	<div>
+		<label for="gameId">
+      Game Id
+    </label>
+		<input id="gameId" type="text" formControlName="gameId">
+  </div>
+
+			<button class="button" type="submit">Purchase</button>
+
+</form>

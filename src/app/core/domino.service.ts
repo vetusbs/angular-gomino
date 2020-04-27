@@ -8,14 +8,14 @@ import { map } from "rxjs/operators";
   providedIn: "root"
 })
 export class DominoService {
-  private baseUrl = "https://localhost:3000/game/5983b074-8884-11ea-84d8-a683e74ed2e3";
+  private baseUrl = "https://localhost:3000/game/";
 
   constructor(private http: HttpClient, private adapter: DominoAdapter) {}
 
-  list(): Observable<T> {
+  getGame(gameId: String): Observable<T> {
     const url = this.baseUrl;
     return this.http
-      .get(url);
+      .get(url + gameId);
       //.pipe(map((data: any) => data.map(item => this.adapter.adapt(item)))); 
   }
 }
