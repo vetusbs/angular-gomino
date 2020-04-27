@@ -1,0 +1,9 @@
+<div class="grid-container" style="background: green">
+  <div class="grid" [style.height.px]="height" [style.width.px]="width">
+
+    <div *ngFor="let player of players">
+        {{player.name}}
+    </div>
+
+  </div>
+</div>

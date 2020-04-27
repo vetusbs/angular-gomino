@@ -31,7 +31,7 @@ export class DominoComponent implements OnInit {
     this.dominoService.getGame(formData.gameId).subscribe(
       data => {
         // Success
-        this.domino = new Domino(data.id);
+        this.domino = data;
       },
       error => {
         console.error(error);
@@ -40,6 +40,8 @@ export class DominoComponent implements OnInit {
 
     this.checkoutForm.reset();
   }
+
+  ngAfterViewChecked() {}
 
   ngOnInit() {}
 }

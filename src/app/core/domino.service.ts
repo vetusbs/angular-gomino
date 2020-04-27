@@ -12,10 +12,10 @@ export class DominoService {
 
   constructor(private http: HttpClient, private adapter: DominoAdapter) {}
 
-  getGame(gameId: String): Observable<T> {
+  getGame(gameId: String): Observable<Domino> {
     const url = this.baseUrl;
     return this.http
-      .get(url + gameId);
-      //.pipe(map((data: any) => data.map(item => this.adapter.adapt(item)))); 
+      .get(url + gameId)
+      .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
 }
