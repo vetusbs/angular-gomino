@@ -18,10 +18,4 @@ export class GridComponent {
     console.info("llalala players");
     console.info(this.players);
   }
-
-  ngAfterViewChecked() {
-    console.info("llalala players");
-    console.info(this.players);
-    console.info(this.height);
-  }
 }

@@ -5,7 +5,11 @@ export class Domino {
 }
 
 export class Player {
-  constructor(public name: string) {}
+  constructor(public name: string, public cards: Card[]) {}
+}
+
+export class Card {
+  constructor(public left: Number, public right: Number) {}
 }
 
 @Injectable({
@@ -13,8 +17,16 @@ export class Player {
 })
 export class DominoAdapter {
   adapt(item: any): Domino {
-    var players = item.Players.map(player => new Player(player.Name));
-    console.info(players);
+    var players = item.Players.map(
+      player => { 
+        var cards = player.Cards.map(
+        card => new Card(card.left, card.right))
+        console.info("adapter")
+        console.info(cards)
+        return new Player(player.Name, cards)
+      }
+      );
+    
     return new Domino(item.Id, players);
   }
 }
