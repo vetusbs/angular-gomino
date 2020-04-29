@@ -1,0 +1,116 @@
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #000;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.domino {
+  -webkit-flex: none;
+  -moz-flex: none;
+  -ms-flex: none;
+  flex: none;
+
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+
+  width: 50px;
+  border: 4px solid #000;
+  border-radius: 8px;
+  min-height: 100px;
+  background-color: #fff;
+  cursor: pointer;
+  float: left;
+}
+
+.domino > div {
+  -webkit-flex: auto;
+  -moz-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+  position: relative;
+}
+
+.domino > hr {
+  -webkit-flex: none;
+  -moz-flex: none;
+  -ms-flex: none;
+  flex: none;
+  margin: 0 5px;
+}
+
+.domino > div > span {
+  position: absolute;
+  border: 4px solid #000;
+  border-radius: 4px;
+  display: none;
+}
+
+.domino > div > span:first-of-type {
+  left: 10%;
+  top: 10%;
+}
+
+.domino > div > span:nth-of-type(2) {
+  right: 10%;
+  top: 10%;
+}
+
+.domino > div > span:nth-of-type(3) {
+  left: 10%;
+  top: calc(50% - 4px);
+}
+
+.domino > div > span:nth-of-type(4) {
+  left: calc(50% - 4px);
+  top: calc(50% - 4px);
+}
+
+.domino > div > span:nth-of-type(5) {
+  right: 10%;
+  top: calc(50% - 4px);
+}
+
+.domino > div > span:nth-of-type(6) {
+  left: 10%;
+  bottom: 10%;
+}
+
+.domino > div > span:nth-of-type(7) {
+  right: 10%;
+  bottom: 10%;
+}
+
+.domino > div.one > span:nth-of-type(4),
+.domino > div.two > span:nth-of-type(2),
+.domino > div.two > span:nth-of-type(6),
+.domino > div.three > span:nth-of-type(2),
+.domino > div.three > span:nth-of-type(4),
+.domino > div.three > span:nth-of-type(6),
+.domino > div.four > span:nth-of-type(1),
+.domino > div.four > span:nth-of-type(2),
+.domino > div.four > span:nth-of-type(6),
+.domino > div.four > span:nth-of-type(7),
+.domino > div.five > span:nth-of-type(1),
+.domino > div.five > span:nth-of-type(2),
+.domino > div.five > span:nth-of-type(4),
+.domino > div.five > span:nth-of-type(6),
+.domino > div.five > span:nth-of-type(7),
+.domino > div.six > span:nth-of-type(1),
+.domino > div.six > span:nth-of-type(2),
+.domino > div.six > span:nth-of-type(3),
+.domino > div.six > span:nth-of-type(5),
+.domino > div.six > span:nth-of-type(6),
+.domino > div.six > span:nth-of-type(7)
+{
+  display: block;
+}

@@ -44,4 +44,8 @@ export class DominoComponent implements OnInit {
   ngAfterViewChecked() {}
 
   ngOnInit() {}
+
+  onGameUpdate(domino: Domino) {
+    this.domino = domino;
+  }
 }

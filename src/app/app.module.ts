@@ -10,13 +10,14 @@ import { DominoComponent } from './domino/domino.component';
 import { DominoService } from './core/domino.service';
 import { GridComponent } from './grid/grid.component';
 import { PlayerComponent } from './player/player.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule,
   RouterModule.forRoot([
       { path: '', component: DominoComponent },
     ]) ],
-  declarations: [ AppComponent, HelloComponent, DominoComponent, GridComponent, PlayerComponent ],
+  declarations: [ AppComponent, HelloComponent, DominoComponent, GridComponent, PlayerComponent, CardComponent ],
   bootstrap:    [ DominoComponent ],
   providers: [DominoService],
 })

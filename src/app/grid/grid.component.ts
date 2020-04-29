@@ -5,6 +5,7 @@ import { Player } from "../core/domino.model";
 @Component({
   selector: "grid",
   templateUrl: "./grid.component.html",
+  styleUrls: ["./grid.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridComponent {

@@ -1,11 +1,12 @@
-<div class="container" style="background: green">
+<div class="board">
   <div class="row">
 
-    <div class="col-sm" *ngFor="let player of players">
-        <player
+    
+        <player class="col-sm" *ngFor="let player of players"
         [player]="player"
+        [gameId]="player"
         ></player>
-    </div>
+    
 
   </div>
 </div>

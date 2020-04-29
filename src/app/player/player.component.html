@@ -1,10 +1,6 @@
 <h4>{{player.name}}</h4>
-<div class="col-sm" *ngFor="let card of player.cards">
-  
-         <table class="table-bordered" style="width:100%">
-  <tr>
-    <th>{{card.left}}</th>
-    <th>{{card.right}}</th>
-  </tr>
-</table> 
-    </div>
+
+<card *ngFor="let card of player.cards" 
+[card]="card"
+(movement)="onPlay($event)"
+></card>

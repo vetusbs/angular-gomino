@@ -21,12 +21,10 @@ export class DominoAdapter {
       player => { 
         var cards = player.Cards.map(
         card => new Card(card.left, card.right))
-        console.info("adapter")
-        console.info(cards)
         return new Player(player.Name, cards)
       }
       );
     
-    return new Domino(item.Id, players);
+    return new Domino(item.id, players);
   }
 }
