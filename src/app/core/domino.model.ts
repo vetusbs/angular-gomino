@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 export class Domino {
-  constructor(public id: string, public players: Player[]) {}
+  constructor(public id: string, public players: Player[], public cards: Card[]) {}
 }
 
 export class Player {
@@ -17,7 +17,7 @@ export class Card {
 })
 export class DominoAdapter {
   adapt(item: any): Domino {
-    var players = item.Players.map(
+    var players = item.players.map(
       player => { 
         var cards = player.Cards.map(
         card => new Card(card.left, card.right))
@@ -25,6 +25,11 @@ export class DominoAdapter {
       }
       );
     
-    return new Domino(item.id, players);
+    var cards = item.cards.map(
+      card => {
+        return new Card(card.left, card.right)
+      }
+    )
+    return new Domino(item.id, players, cards);
   }
 }

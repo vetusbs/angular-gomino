@@ -12,23 +12,29 @@
 		<input id="gameId" type="text" formControlName="gameId">
   </div>
 
-			<button class="button" type="submit">Start</button>
+		<button class="button" type="submit">Start</button>
 
 </form>
 
+<div class="player">
+	<div class="row">
+
+
+		<player class="col-sm" *ngFor="let player of domino?.players" [player]="player" [gameId]="domino.id"
+			(onGameUpdate)="onGameUpdate($event)">
+			taetasetasetaset
+			{{domino.id}}
+		</player>
+
+
+	</div>
+</div>
+
 <div class="board">
-  <div class="row">
+	<div class="row">
 
-    
-        <player class="col-sm" *ngFor="let player of domino?.players"
-        [player]="player"
-        [gameId]="domino.id"
-        (onGameUpdate)="onGameUpdate($event)"
-        >
-        taetasetasetaset
-                {{domino.id}}
-        </player>
-    
+		<card *ngFor="let card of  domino?.cards" [card]="card"></card>
 
-  </div>
+
+	</div>
 </div>
