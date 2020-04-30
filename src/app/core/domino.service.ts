@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Domino, DominoAdapter } from "./domino.model";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { Card } from "../core/domino.model";
+import { Movement } from "../core/domino.model";
 
 @Injectable({
   providedIn: "root"
@@ -20,10 +20,10 @@ export class DominoService {
       .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
 
-  doMovement(gameId: String, playerId: String, card: Card) : Observable<?> {
+  doMovement(gameId: String, playerId: String, movement: Movement) : Observable<?> {
     const url = this.baseUrl;
     return this.http
-      .put(url + gameId, '{"type":"play", "game":"' + gameId + '", "details": {"left": ' +card.left+ ', "right": '+card.right+', "number": 1 }}', { headers: { 'Content-Type': 'application/json' } })
+      .put(url + gameId, '{"type":"play", "game":"' + gameId + '", "details": {"left": ' +movement.card.left+ ', "right": '+movement.card.right+', "isLeft": '+movement.isLeft+' }}', { headers: { 'Content-Type': 'application/json' } })
       .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
 }

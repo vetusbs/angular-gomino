@@ -9,7 +9,11 @@ export class Player {
 }
 
 export class Card {
-  constructor(public left: Number, public right: Number) {}
+  constructor(public left: Number, public right: Number, public reverse: boolean) {}
+}
+
+export class Movement {
+  constructor(public card: Card, public isLeft: boolean) {}
 }
 
 @Injectable({
@@ -20,14 +24,14 @@ export class DominoAdapter {
     var players = item.players.map(
       player => { 
         var cards = player.Cards.map(
-        card => new Card(card.left, card.right))
+        card => new Card(card.left, card.right, card.reverse))
         return new Player(player.Name, cards)
       }
       );
     
     var cards = item.cards.map(
       card => {
-        return new Card(card.left, card.right)
+        return new Card(card.left, card.right, card.reverse)
       }
     )
     return new Domino(item.id, players, cards);

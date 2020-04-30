@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Player, Domino } from "../core/domino.model";
-import { Card } from "../core/domino.model";
+import { Card, Movement } from "../core/domino.model";
 import { DominoService } from "../core/domino.service";
 
 @Component({
@@ -25,9 +25,9 @@ export class PlayerComponent implements OnInit {
 //    console.info(this.domino);
   }
 
-  onPlay(card: Card) {
+  onPlay(movement: Movement) {
     console.info("Player %s has played", this.gameId);
-    this.dominoService.doMovement(this.gameId, "", card).subscribe(
+    this.dominoService.doMovement(this.gameId, "", movement).subscribe(
       data => {
         // Success
         this.onGameUpdate.emit(data)

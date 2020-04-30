@@ -7,6 +7,30 @@ hr {
     padding: 0;
 }
 
+.dominowrapper {
+  -webkit-flex: auto;
+  -moz-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.spacer {
+  -webkit-flex: auto;
+  -moz-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+}
+
 .domino {
   -webkit-flex: none;
   -moz-flex: none;
@@ -113,4 +137,21 @@ hr {
 .domino > div.six > span:nth-of-type(7)
 {
   display: block;
+}
+
+.rot90 {
+    transform: rotate(90deg);
+}
+
+.rot270 {
+    transform: rotate(270deg);
+}
+
+.class1 {
+  height: 100px;
+  width: 100px;
+}
+
+.class2 {
+  float: left;
 }

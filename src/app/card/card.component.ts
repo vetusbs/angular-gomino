@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Card } from "../core/domino.model";
+import { Card, Movement } from "../core/domino.model";
 
 const faces = ["", "one", "two", "three", "four", "five", "six"];
 
@@ -10,7 +10,8 @@ const faces = ["", "one", "two", "three", "four", "five", "six"];
 })
 export class CardComponent implements OnInit {
   @Input() public card: Card;
-  @Output() movement = new EventEmitter<number>();
+  @Input() public isBoard: boolean = false;
+  @Output() movement = new EventEmitter<Card>();
 
   constructor() {}
 
@@ -24,8 +25,21 @@ export class CardComponent implements OnInit {
     return faces[this.card.right];
   }
 
-  play() {
-    this.movement.emit(this.card);
+  get getAngle(): String {
+    console.debug(this.isBoard)
+    var result;
+    if (this.isBoard == false) {
+      result =  ""
+    } else if (this.card.reverse == true) {
+      result =  "rot90"
+    } else {
+      result =  "rot270"
+    }
+    return result;
+  }
+
+  play(isLeft: boolean) {
+    this.movement.emit(new Movement(this.card, isLeft));
   }
 
   ngAfterViewChecked() {
