@@ -48,4 +48,8 @@ export class DominoComponent implements OnInit {
   onGameUpdate(domino: Domino) {
     this.domino = domino;
   }
+
+  onPickUp() {
+    console.info("Player %s has picked up", this.domino.id);
+  }
 }

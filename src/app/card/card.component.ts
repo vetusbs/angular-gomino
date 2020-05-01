@@ -25,15 +25,14 @@ export class CardComponent implements OnInit {
     return faces[this.card.right];
   }
 
-  get getAngle(): String {
-    console.debug(this.isBoard)
-    var result;
+  get getClass(): String {
+    var result = "";
     if (this.isBoard == false) {
-      result =  ""
+      result += "";
     } else if (this.card.reverse == true) {
-      result =  "rot90"
+      result += " rot90";
     } else {
-      result =  "rot270"
+      result += " rot270";
     }
     return result;
   }

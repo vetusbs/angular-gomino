@@ -1,10 +1,7 @@
-<div class="dominowrapper" [ngClass]="{
-   'class1': isBoard,
-'class2': !isBoard
-}">
+<div class="dominowrapper class1" >
 	<div class="spacer"></div>
-	<div class="domino" [ngClass]="getClass">
-		<div (click)="play(true)" [className]="getClassLeft">
+	<div class="domino">
+		<div>
 			<span></span>
 			<span></span>
 			<span></span>
@@ -14,7 +11,7 @@
 			<span></span>
 		</div>
 		<hr />
-		<div (click)="play(false)" [className]="getClassRight">
+		<div>
 			<span></span>
 			<span></span>
 			<span></span>
