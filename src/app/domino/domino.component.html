@@ -40,7 +40,9 @@
 	Pick them up when you cannot play
 	<div class="row">
 
-		<upside-card *ngFor="let i of [].constructor(domino?.sink)" (onGameUpdate)="onGameUpdate($event)">
+		<upside-card *ngFor="let i of [].constructor(domino?.sink +1)" 
+    [gameId]="domino.id"
+    (onGameUpdate)="onGameUpdate($event)">
 
 		</upside-card>
 
