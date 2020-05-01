@@ -32,24 +32,17 @@
 
 <div class="board container">
 	<div class="row">
-
-		<card *ngFor="let card of  domino?.cards" 
-    [card]="card"
-    [isBoard]="true"
-    ></card>
-
-
+		<card *ngFor="let card of  domino?.cards" [card]="card" [isBoard]="true"></card>
 	</div>
 </div>
 
 <div class="sink container">
-  Pick them up when you cannot play
+	Pick them up when you cannot play
 	<div class="row">
 
-		<upside-card *ngFor="let card of  domino?.sink" 
-    
-    ></upside-card>
+		<upside-card *ngFor="let i of [].constructor(domino?.sink)" (onGameUpdate)="onGameUpdate($event)">
 
+		</upside-card>
 
 	</div>
 </div>

@@ -26,4 +26,11 @@ export class DominoService {
       .put(url + gameId, '{"type":"play", "game":"' + gameId + '", "details": {"left": ' +movement.card.left+ ', "right": '+movement.card.right+', "isLeft": '+movement.isLeft+' }}', { headers: { 'Content-Type': 'application/json' } })
       .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
+
+  pick(gameId: String) : Observable<?> {
+    const url = this.baseUrl;
+    return this.http
+      .put(url + gameId, '{"type":"pick", "game":"' + gameId + '"}', { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data))); 
+  }
 }
