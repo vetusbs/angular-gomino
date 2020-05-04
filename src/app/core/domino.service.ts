@@ -27,10 +27,18 @@ export class DominoService {
       .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
 
-  pick(gameId: String) : Observable<?> {
+  pick(gameId: String, userId: String) : Observable<?> {
     const url = this.baseUrl;
     return this.http
-      .put(url + gameId, '{"type":"pick", "game":"' + gameId + '"}', { headers: { 'Content-Type': 'application/json' } })
+      .put(url + gameId, '{"type":"pick", "game":"' + gameId + '", "details" : {"userId": "'+userId+'"}}', { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data))); 
+  }
+
+  addUser(gameId: String, userId: string, userName: string) : Observable<?> {
+    const url = this.baseUrl;
+    return this.http
+      .put(url + gameId, '{"type":"addUser", "game":"' + gameId + '", "details": {"userId": "' + userId + '", "userName": "' + userName + '"}}', 
+      { headers: { 'Content-Type': 'application/json' } })
       .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
 }

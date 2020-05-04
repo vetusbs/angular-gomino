@@ -9,7 +9,6 @@ import { DominoService } from "../core/domino.service";
   styleUrls: ['./upside-card.component.css']
 })
 export class UpsideCardComponent implements OnInit {
-  @Input() public gameId: String;
   @Output() onGameUpdate = new EventEmitter<Domino>();
 
   constructor(private dominoService: DominoService) {}
@@ -22,19 +21,5 @@ export class UpsideCardComponent implements OnInit {
   ngAfterViewChecked() {
 //    console.info("llalala players");
 //    console.info(this.domino);
-  }
-
-  pick() {
-    console.info("Player %s has picked", this.gameId);
-    this.dominoService.pick(this.gameId).subscribe(
-      data => {
-        // Success
-        this.onGameUpdate.emit(data)
-      },
-      error => {
-        this.onGameUpdate.emit(data)
-        console.error(error.status);
-      }
-    );
   }
 }

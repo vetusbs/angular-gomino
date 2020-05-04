@@ -27,7 +27,7 @@ export class CardComponent implements OnInit {
 
   get getClass(): String {
     var result = "";
-    if (this.isBoard == false) {
+    if (this.isBoard == false || this.card.left == this.card.right) {
       result += "";
     } else if (this.card.reverse == true) {
       result += " rot90";

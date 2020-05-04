@@ -1,9 +1,13 @@
-<hello name="{{ domino?.id }}"></hello>
-<p>
+<hello name="{{ userName }}"></hello>
+<p *ngIf="!domino">
 	Enter the game Id and start playing like craszy fucking bastard
 </p>
+<p *ngIf="userName">
+	lets start playing {{userName}}
+</p>
 
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+<form *ngIf="!domino" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
 
 	<div>
 		<label for="gameId">
@@ -12,7 +16,20 @@
 		<input id="gameId" type="text" formControlName="gameId">
   </div>
 
-		<button class="button" type="submit">Start</button>
+		<button class="btn btn-primary" type="submit">Start</button>
+
+</form>
+
+<form *ngIf="!userName" [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+
+	<div>
+		<label for="userName">
+      User Name
+    </label>
+		<input id="userName" type="text" formControlName="userName">
+  </div>
+
+		<button type="button" class="btn btn-primary" type="submit">login</button>
 
 </form>
 
@@ -37,12 +54,22 @@
 </div>
 
 <div class="sink container">
-	Pick them up when you cannot play
+	<div class="row">
+		<div class="col-sm">
+			<p>Pick them up when you cannot play</p>
+		</div>
+		<div class="col-sm">
+			<button class="btn btn-danger"
+      (click)="pick()">Cannot play</button>
+		</div>
+
+	</div>
 	<div class="row">
 
-		<upside-card *ngFor="let i of [].constructor(domino?.sink +1)" 
-    [gameId]="domino.id"
-    (onGameUpdate)="onGameUpdate($event)">
+		<upside-card *ngFor="let i of [].constructor(domino?.sink)" 
+    (onGameUpdate)="onGameUpdate($event)"
+    (click)="pick()"
+    >
 
 		</upside-card>
 
