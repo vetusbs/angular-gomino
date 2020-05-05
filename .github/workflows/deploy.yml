@@ -12,33 +12,22 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        with:
+          persist-credentials: false
 
-    # Runs a single command using the runners shell
-    - name: Angular Deploy gh-pages Actions
-      uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.2.0
-      with:
-        # Github access token token used to deploy on gh_pages. You can find it on Github.
-        github_access_token: ${{ secrets.ACCESS_TOKEN }}
-        # The directory of the angular project, in which all the commands will run
-        angular_project_dir: # optional, default is ./
-        # Build configuration for the angular app
-        build_configuration: # optional, default is production
-        # base href for the app
-        base_href: # optional, default is /
-        # branch on which the angular build will be deployed
-        deploy_branch: # optional, default is gh-pages
-        # The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`.
-        build_folder: # optional, default is dist
-        # If the action should run 'ng lint'
-        run_lint: # optional
-        # Will not fail the step if anything fails
-        skip_failure: # optional
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
