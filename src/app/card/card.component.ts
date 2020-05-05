@@ -11,7 +11,7 @@ const faces = ["", "one", "two", "three", "four", "five", "six"];
 export class CardComponent implements OnInit {
   @Input() public card: Card;
   @Input() public isBoard: boolean = false;
-  @Output() movement = new EventEmitter<Card>();
+  @Output() movement = new EventEmitter<Movement>();
 
   constructor() {}
 

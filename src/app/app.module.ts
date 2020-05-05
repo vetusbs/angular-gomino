@@ -11,6 +11,7 @@ import { DominoService } from './core/domino.service';
 import { PlayerComponent } from './player/player.component';
 import { CardComponent } from './card/card.component';
 import { UpsideCardComponent } from './upside-card/upside-card.component';
+import {APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule,
@@ -19,6 +20,6 @@ import { UpsideCardComponent } from './upside-card/upside-card.component';
     ]) ],
   declarations: [ AppComponent, HelloComponent, DominoComponent, PlayerComponent, CardComponent, UpsideCardComponent ],
   bootstrap:    [ DominoComponent ],
-  providers: [DominoService],
+  providers: [DominoService, {provide: APP_BASE_HREF, useValue: '/'}],
 })
 export class AppModule { }

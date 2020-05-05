@@ -9,7 +9,7 @@ export class Player {
 }
 
 export class Card {
-  constructor(public left: Number, public right: Number, public reverse: boolean) {}
+  constructor(public left: number, public right: number, public reverse: boolean) {}
 }
 
 export class Movement {
