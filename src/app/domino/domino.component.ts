@@ -6,7 +6,7 @@ import { Domino } from "../core/domino.model";
 import { DominoService } from "../core/domino.service";
 
 @Component({
-  selector: "app-domino",
+  selector: "domino",
   templateUrl: "./domino.component.html",
   styleUrls: ["./domino.component.css"]
 })
