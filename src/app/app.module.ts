@@ -28,6 +28,6 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   declarations: [AppComponent, HelloComponent, DominoComponent, PlayerComponent, CardComponent, UpsideCardComponent, LoginComponent],
   bootstrap: [AppComponent],
-  providers: [DominoService, { provide: APP_BASE_HREF, useValue: '/' }, CookieService, AlertService, AuthenticationService],
+  providers: [DominoService, { provide: APP_BASE_HREF, useValue: '/angular-gomino' }, CookieService, AlertService, AuthenticationService],
 })
 export class AppModule { }

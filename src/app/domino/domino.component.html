@@ -1,11 +1,7 @@
-<hello name="{{ userName }}"></hello>
+<hello name="placeholder"></hello>
 <p *ngIf="!domino">
 	Enter the game Id and start playing like craszy fucking bastard
 </p>
-<p *ngIf="userName">
-	lets start playing {{userName}}
-</p>
-
 
 <form *ngIf="!domino" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
 
