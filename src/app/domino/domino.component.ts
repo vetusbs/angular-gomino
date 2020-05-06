@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import * as uuid from "uuid";
+import { Router } from '@angular/router';
 
-import { Domino } from "../core/domino.model";
+import { Domino, User } from "../core/domino.model";
 import { DominoService } from "../core/domino.service";
+import { AuthenticationService } from "../core/authentication.service";
 
 @Component({
   selector: "domino",
@@ -12,30 +14,32 @@ import { DominoService } from "../core/domino.service";
 })
 export class DominoComponent implements OnInit {
   domino: Domino;
-  public userName: string;
   checkoutForm;
-  loginForm;
 
   // (2) Inject
   constructor(
+    private router: Router,
     private dominoService: DominoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
   ) {
     this.domino = null;
 
     this.checkoutForm = this.formBuilder.group({
       gameId: ""
     });
-
-    this.loginForm = this.formBuilder.group({
-      userName: ""
-    });
   }
 
   onSubmit(formData) {
-    // Process checkout data here
+    var user : User = this.authenticationService.currentUserValue;
+    console.info(formData.gameId)
+    console.info(user.email)
+    this.joinGame(formData.gameId, user.email, user.email)
+    this.checkoutForm.reset();
+  }
 
-    this.dominoService.getGame(formData.gameId).subscribe(
+  private joinGame(gameId: string, userId: string, userName: string) {
+    this.dominoService.addUser(gameId, userId, userName).subscribe(
       data => {
         // Success
         this.domino = data;
@@ -44,8 +48,6 @@ export class DominoComponent implements OnInit {
         console.error(error);
       }
     );
-
-    this.checkoutForm.reset();
   }
 
   login(formData) {
@@ -54,26 +56,14 @@ export class DominoComponent implements OnInit {
     const userId = uuid.v4();
     const userName = formData.userName;
 
-    this.dominoService.addUser(this.domino.id, userId, userName).subscribe(
-      data => {
-        // Success
-        this.userName = userName;
-        localStorage.setItem("userId", userId);
-        localStorage.setItem("userName", userName);
-
-        console.info("userId " + userId);
-
-        this.domino = data;
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    this.joinGame(userId, userName, this.domino.id)
   }
 
   ngAfterViewChecked() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   onGameUpdate(domino: Domino) {
     this.domino = domino;
