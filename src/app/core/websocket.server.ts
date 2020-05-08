@@ -23,7 +23,7 @@ export class WebsocketService {
     if (window.WebSocket === undefined) {
         
     } else {
-        this.socket = new WebSocket("ws://localhost:3000/ws/" + gameId + "/" + userId)
+        this.socket = new WebSocket(environment.wsUrl + "/ws/" + gameId + "/" + userId)
             
         this.socket.onopen = function() {
             console.log("<p>Socket is open</p>");
