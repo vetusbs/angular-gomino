@@ -1,6 +1,7 @@
 .class1 {
   height: 100px;
   width: 70px;
+  float: left;
 }
 
 .domino {

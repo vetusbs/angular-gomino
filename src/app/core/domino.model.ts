@@ -5,7 +5,7 @@ export class Domino {
 }
 
 export class Player {
-  constructor(public name: string, public cards: Card[]) { }
+  constructor(public id: string, public name: string, public cards: Card[], public isCurrentPlayer: boolean, public points: number[]) { }
 }
 
 export class Card {
@@ -23,9 +23,9 @@ export class DominoAdapter {
   adapt(item: any): Domino {
     var players = item.players.map(
       player => {
-        var cards = player.Cards.map(
+        var cards = player.cards.map(
           card => new Card(card.left, card.right, card.reverse))
-        return new Player(player.Name, cards)
+        return new Player(player.name, player.name, cards, player.isCurrentPlayer, player.points)
       }
     );
 

@@ -7,12 +7,12 @@
 
 	<div>
 		<label for="gameId">
-      Game Id
-    </label>
+			Game Id
+		</label>
 		<input id="gameId" type="text" formControlName="gameId">
-  </div>
+	</div>
 
-		<button class="btn btn-primary" type="submit">Join Game</button>
+	<button class="btn btn-primary" type="submit">Join Game</button>
 
 </form>
 
@@ -22,7 +22,6 @@
 
 		<player class="col-sm" *ngFor="let player of domino?.players" [player]="player" [gameId]="domino.id"
 			(onGameUpdate)="onGameUpdate($event)">
-			taetasetasetaset
 			{{domino.id}}
 		</player>
 
@@ -42,17 +41,17 @@
 			<p>Pick them up when you cannot play</p>
 		</div>
 		<div class="col-sm">
-			<button class="btn btn-danger"
-      (click)="pick()">Cannot play</button>
+			<button class="btn btn-danger" (click)="pick()">Cannot play</button>
+		</div>
+		<div class="col-sm">
+			<button class="btn btn-primary" (click)="shuffle()">shuffle</button>
 		</div>
 
 	</div>
 	<div class="row">
 
-		<upside-card *ngFor="let i of [].constructor(domino?.sink)" 
-    (onGameUpdate)="onGameUpdate($event)"
-    (click)="pick()"
-    >
+		<upside-card *ngFor="let i of [].constructor(domino?.sink)" (onGameUpdate)="onGameUpdate($event)"
+			(click)="pick()">
 
 		</upside-card>
 

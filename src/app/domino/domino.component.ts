@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Domino, User } from "../core/domino.model";
 import { DominoService } from "../core/domino.service";
 import { AuthenticationService } from "../core/authentication.service";
+import { WebsocketService } from "../core/websocket.server";
 
 @Component({
   selector: "domino",
@@ -21,7 +22,8 @@ export class DominoComponent implements OnInit {
     private router: Router,
     private dominoService: DominoService,
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private socketService: WebsocketService
   ) {
     this.domino = null;
 
@@ -31,7 +33,7 @@ export class DominoComponent implements OnInit {
   }
 
   onSubmit(formData) {
-    var user : User = this.authenticationService.currentUserValue;
+    var user: User = this.authenticationService.currentUserValue;
     console.info(formData.gameId)
     console.info(user.email)
     this.joinGame(formData.gameId, user.email, user.email)
@@ -48,6 +50,24 @@ export class DominoComponent implements OnInit {
         console.error(error);
       }
     );
+
+    this.socketService.connect(gameId,userId).subscribe(
+      data => {
+        console.log(data)
+        this.dominoService.getGame(this.domino.id).subscribe(
+          data => {
+            // Success
+            this.domino = data;
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      },
+      error => {
+
+      }
+    )
   }
 
   login(formData) {
@@ -59,7 +79,21 @@ export class DominoComponent implements OnInit {
     this.joinGame(userId, userName, this.domino.id)
   }
 
-  ngAfterViewChecked() {}
+  shuffle() {
+    console.info("shuffle... ");
+
+    this.dominoService.shuffle(this.domino.id).subscribe(
+      data => {
+        // Success
+        this.domino = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  ngAfterViewChecked() { }
 
   ngOnInit() {
 
@@ -71,7 +105,7 @@ export class DominoComponent implements OnInit {
 
   pick() {
     console.info("Player %s has picked", localStorage.getItem("userId"));
-    this.dominoService.pick(this.domino.id,  localStorage.getItem("userId")).subscribe(
+    this.dominoService.pick(this.domino.id, localStorage.getItem("userId")).subscribe(
       data => {
         // Success
         this.onGameUpdate(data)

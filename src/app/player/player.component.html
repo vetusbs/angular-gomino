@@ -1,6 +1,14 @@
-<h4>{{player.name}}</h4>
+<h4 *ngIf="!player.isCurrentPlayer">{{player.name}}</h4>
+<h2 *ngIf="player.isCurrentPlayer">{{player.name}}</h2>
 
-<card *ngFor="let card of player.cards" 
-[card]="card"
-(movement)="onPlay($event)"
-></card>
+<ul>
+    <li *ngFor="let number of player.points">{{number}}</li>
+  </ul>
+
+<div *ngIf="player.id == authenticatorService.currentUserValue.email">
+<card *ngFor="let card of player.cards" [card]="card" (movement)="onPlay($event)"></card>
+</div>
+
+<div *ngIf="player.id != authenticatorService.currentUserValue.email">
+<upside-card *ngFor="let card of player.cards" (onGameUpdate)="onGameUpdate($event)"></upside-card>
+</div>

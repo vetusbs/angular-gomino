@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component'
 import { AlertService } from './core/alert.service';
 import { AuthenticationService } from './core/authentication.service';
 import { AppRoutingModule } from './app-routing.module';
+import { WebsocketService } from './core/websocket.server';
 
 @NgModule({
   imports: [
@@ -28,6 +29,6 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   declarations: [AppComponent, HelloComponent, DominoComponent, PlayerComponent, CardComponent, UpsideCardComponent, LoginComponent],
   bootstrap: [AppComponent],
-  providers: [DominoService, { provide: APP_BASE_HREF, useValue: '/angular-gomino' }, CookieService, AlertService, AuthenticationService],
+  providers: [DominoService, { provide: APP_BASE_HREF, useValue: '/angular-gomino' }, CookieService, AlertService, AuthenticationService, WebsocketService],
 })
 export class AppModule { }

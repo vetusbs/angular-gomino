@@ -43,4 +43,12 @@ export class DominoService {
       { headers: { 'Content-Type': 'application/json' } })
       .pipe(map((data: any) => this.adapter.adapt(data))); 
   }
+
+  shuffle(gameId: String) : Observable<Domino> {
+    const url = this.baseUrl;
+    return this.http
+      .put(url + gameId, '{"type":"shuffle", "game":"' + gameId + '", "details": {}}', 
+      { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data))); 
+  }
 }

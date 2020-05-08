@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Player, Domino } from "../core/domino.model";
 import { Card, Movement } from "../core/domino.model";
 import { DominoService } from "../core/domino.service";
+import { AuthenticationService } from "../core/authentication.service";
 
 @Component({
   selector: "player",
@@ -13,7 +14,7 @@ export class PlayerComponent implements OnInit {
   @Input() public gameId: String;
   @Output() onGameUpdate = new EventEmitter<Domino>();
 
-  constructor(private dominoService: DominoService) {}
+  constructor(private dominoService: DominoService, public authenticatorService: AuthenticationService) {}
 
   ngOnInit() {
     //console.info("Game ID");
