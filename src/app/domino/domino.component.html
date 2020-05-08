@@ -1,7 +1,25 @@
-<hello name="placeholder"></hello>
+<hello name="{{ currentUser }}"></hello>
 <p *ngIf="!domino">
 	Enter the game Id and start playing like craszy fucking bastard
 </p>
+
+<form *ngIf="!domino" [formGroup]="createGameForm" (ngSubmit)="onCreateGameSubmit(createGameForm.value)">
+
+	<div>
+		<label for="gameId">
+			Game Id
+		</label>
+		<input id="gameId" type="text" formControlName="gameId">
+
+		<label for="players">
+			Number of players
+		</label>
+		<input id="players" type="number" formControlName="players">
+	</div>
+
+	<button class="btn btn-primary" type="submit">Create and Join Game</button>
+
+</form>
 
 <form *ngIf="!domino" [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
 
@@ -12,9 +30,11 @@
 		<input id="gameId" type="text" formControlName="gameId">
 	</div>
 
-	<button class="btn btn-primary" type="submit">Join Game</button>
+	<button class="btn btn-success" type="submit">Join Game</button>
 
 </form>
+
+<button class="btn btn-info" (click) = 'refreshGame()'>Refresh Game</button>
 
 <div class="player container">
 	<div class="row">

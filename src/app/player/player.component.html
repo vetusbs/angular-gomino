@@ -1,5 +1,4 @@
-<h4 *ngIf="!player.isCurrentPlayer">{{player.name}}</h4>
-<h2 *ngIf="player.isCurrentPlayer">{{player.name}}</h2>
+<h2 [ngClass]="{'currentUser': player.isCurrentPlayer }">{{player.name}}</h2>
 
 <ul>
     <li *ngFor="let number of player.points">{{number}}</li>

@@ -10,45 +10,53 @@ import { environment } from '../../environments/environment';
   providedIn: "root"
 })
 export class DominoService {
-  
-  private baseUrl = environment.apiUrl + "/game/" ;
 
-  constructor(private http: HttpClient, private adapter: DominoAdapter) {}
+  private baseUrl = environment.apiUrl + "/game";
+
+  constructor(private http: HttpClient, private adapter: DominoAdapter) { }
+
+  createGame(gameId: String, players: number): Observable<Domino> {
+    const url = this.baseUrl;
+    return this.http
+      .post(url, '{"players":' + players + ', "id":"' + gameId + '"}',
+        { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data)));
+  }
 
   getGame(gameId: String): Observable<Domino> {
     const url = this.baseUrl;
     return this.http
-      .get(url + gameId)
-      .pipe(map((data: any) => this.adapter.adapt(data))); 
+      .get(url + "/" + gameId)
+      .pipe(map((data: any) => this.adapter.adapt(data)));
   }
 
-  doMovement(gameId: String, playerId: String, movement: Movement) : Observable<Domino> {
+  doMovement(gameId: String, playerId: String, movement: Movement): Observable<Domino> {
     const url = this.baseUrl;
     return this.http
-      .put(url + gameId, '{"type":"play", "game":"' + gameId + '", "details": {"left": ' +movement.card.left+ ', "right": '+movement.card.right+', "isLeft": '+movement.isLeft+' }}', { headers: { 'Content-Type': 'application/json' } })
-      .pipe(map((data: any) => this.adapter.adapt(data))); 
+      .put(url + "/" + gameId, '{"type":"play", "game":"' + gameId + '", "details": {"left": ' + movement.card.left + ', "right": ' + movement.card.right + ', "isLeft": ' + movement.isLeft + ' }}', { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data)));
   }
 
-  pick(gameId: String, userId: String) : Observable<Domino> {
+  pick(gameId: String, userId: String): Observable<Domino> {
     const url = this.baseUrl;
     return this.http
-      .put(url + gameId, '{"type":"pick", "game":"' + gameId + '", "details" : {"userId": "'+userId+'"}}', { headers: { 'Content-Type': 'application/json' } })
-      .pipe(map((data: any) => this.adapter.adapt(data))); 
+      .put(url + "/" + gameId, '{"type":"pick", "game":"' + gameId + '", "details" : {"userId": "' + userId + '"}}', { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data)));
   }
 
-  addUser(gameId: String, userId: string, userName: string) : Observable<Domino> {
+  addUser(gameId: String, userId: string, userName: string): Observable<Domino> {
     const url = this.baseUrl;
     return this.http
-      .put(url + gameId, '{"type":"addUser", "game":"' + gameId + '", "details": {"userId": "' + userId + '", "userName": "' + userName + '"}}', 
-      { headers: { 'Content-Type': 'application/json' } })
-      .pipe(map((data: any) => this.adapter.adapt(data))); 
+      .put(url + "/" + gameId, '{"type":"addUser", "game":"' + gameId + '", "details": {"userId": "' + userId + '", "userName": "' + userName + '"}}',
+        { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data)));
   }
 
-  shuffle(gameId: String) : Observable<Domino> {
+  shuffle(gameId: String): Observable<Domino> {
     const url = this.baseUrl;
     return this.http
-      .put(url + gameId, '{"type":"shuffle", "game":"' + gameId + '", "details": {}}', 
-      { headers: { 'Content-Type': 'application/json' } })
-      .pipe(map((data: any) => this.adapter.adapt(data))); 
+      .put(url + "/" +gameId, '{"type":"shuffle", "game":"' + gameId + '", "details": {}}',
+        { headers: { 'Content-Type': 'application/json' } })
+      .pipe(map((data: any) => this.adapter.adapt(data)));
   }
 }

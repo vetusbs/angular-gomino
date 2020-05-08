@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import * as uuid from "uuid";
-import { Router } from '@angular/router';
 
 import { Domino, User } from "../core/domino.model";
 import { DominoService } from "../core/domino.service";
@@ -15,11 +14,11 @@ import { WebsocketService } from "../core/websocket.server";
 })
 export class DominoComponent implements OnInit {
   domino: Domino;
-  checkoutForm;
+  checkoutForm: FormGroup;
+  createGameForm: FormGroup;
 
   // (2) Inject
   constructor(
-    private router: Router,
     private dominoService: DominoService,
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -30,6 +29,15 @@ export class DominoComponent implements OnInit {
     this.checkoutForm = this.formBuilder.group({
       gameId: ""
     });
+
+    this.createGameForm = this.formBuilder.group({
+      gameId: "",
+      players: 3
+    });
+  }
+
+  get currentUser() : string {
+    return this.authenticationService.currentUserValue.email;
   }
 
   onSubmit(formData) {
@@ -38,6 +46,34 @@ export class DominoComponent implements OnInit {
     console.info(user.email)
     this.joinGame(formData.gameId, user.email, user.email)
     this.checkoutForm.reset();
+  }
+
+  onCreateGameSubmit(formData) {
+    console.info(formData.gameId)
+    console.info(formData.players)
+    this.dominoService.createGame(formData.gameId, formData.players).subscribe(
+      data => {
+        // Success
+        var user: User = this.authenticationService.currentUserValue;
+        this.joinGame(formData.gameId, user.email, user.email)
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    this.createGameForm.reset();
+  }
+
+  refreshGame() {
+    this.dominoService.getGame(this.domino.id).subscribe(
+      data => {
+        // Success
+        this.domino = data;
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   private joinGame(gameId: string, userId: string, userName: string) {
@@ -53,16 +89,7 @@ export class DominoComponent implements OnInit {
 
     this.socketService.connect(gameId,userId).subscribe(
       data => {
-        console.log(data)
-        this.dominoService.getGame(this.domino.id).subscribe(
-          data => {
-            // Success
-            this.domino = data;
-          },
-          error => {
-            console.error(error);
-          }
-        );
+        this.refreshGame()
       },
       error => {
 
