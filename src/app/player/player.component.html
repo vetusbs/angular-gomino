@@ -1,13 +1,16 @@
-<h2 [ngClass]="{'currentUser': player.isCurrentPlayer }">{{player.name}}</h2>
+<div class="container">
+    <div class="row">
+        <h2 [ngClass]="{'currentUser': player.isCurrentPlayer }">{{player.name}}</h2>
+    </div>
+    <span *ngFor="let number of player.points">{{number}} - </span>
+    <span style="font-weight: bold;">{{totalPoints}}</span>
 
-<ul>
-    <li *ngFor="let number of player.points">{{number}}</li>
-  </ul>
+</div>
 
 <div *ngIf="player.id == authenticatorService.currentUserValue.email">
-<card *ngFor="let card of player.cards" [card]="card" (movement)="onPlay($event)"></card>
+    <card *ngFor="let card of player.cards" [card]="card" (movement)="onPlay($event)"></card>
 </div>
 
 <div *ngIf="player.id != authenticatorService.currentUserValue.email">
-<upside-card *ngFor="let card of player.cards" (onGameUpdate)="onGameUpdate($event)"></upside-card>
+    <upside-card *ngFor="let card of player.cards" (onGameUpdate)="onGameUpdate($event)"></upside-card>
 </div>

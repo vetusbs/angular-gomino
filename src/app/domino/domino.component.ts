@@ -61,7 +61,6 @@ export class DominoComponent implements OnInit {
         console.error(error);
       }
     );
-    this.createGameForm.reset();
   }
 
   refreshGame() {
@@ -74,6 +73,11 @@ export class DominoComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  quitGame() {
+    this.domino = null
+    this.socketService.disconnect()
   }
 
   private joinGame(gameId: string, userId: string, userName: string) {

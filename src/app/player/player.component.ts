@@ -26,6 +26,10 @@ export class PlayerComponent implements OnInit {
 //    console.info(this.domino);
   }
 
+  get totalPoints() : number {
+    return this.player.points.reduce((a, b) => a + b, 0)
+  }
+
   onPlay(movement: Movement) {
     console.info("Player %s has played", this.gameId);
     this.dominoService.doMovement(this.gameId, "", movement).subscribe(

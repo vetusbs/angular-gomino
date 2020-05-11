@@ -34,24 +34,36 @@
 
 </form>
 
-<button class="btn btn-info" (click) = 'refreshGame()'>Refresh Game</button>
 
-<div class="player container">
+
+<div *ngIf="domino" class="board container">
 	<div class="row">
-
-
-		<player class="col-sm" *ngFor="let player of domino?.players" [player]="player" [gameId]="domino.id"
+		<button class="btn btn-info col-sm-1" (click)='refreshGame()'>Refresh Game</button>
+		<div class="col-sm-10"></div>
+		<button class="btn btn-info col-sm-1" (click)='quitGame()'>Quit Game</button>
+	</div>
+	<div class="row" style="background-color: greenyellow;">
+		<player class="col-sm" [player]="domino?.players[0]" [gameId]="domino.id" (onGameUpdate)="onGameUpdate($event)">
+			{{domino.id}}
+		</player>
+	</div>
+	<div class="row">
+		<player style="background-color: greenyellow;" class="col-sm-2" [player]="domino?.players[1]" [gameId]="domino.id"
 			(onGameUpdate)="onGameUpdate($event)">
 			{{domino.id}}
 		</player>
-
-
+		<div class="col-sm-8" style="background-color: green;">
+			<card *ngFor="let card of  domino?.cards" [card]="card" [isBoard]="true"></card>
+		</div>
+		<player style="background-color: greenyellow;" *ngIf="domino.players[2]" class="col-sm-2" [player]="domino?.players[2]" [gameId]="domino.id"
+			(onGameUpdate)="onGameUpdate($event)">
+			{{domino.id}}
+		</player>
 	</div>
-</div>
-
-<div class="board container">
-	<div class="row">
-		<card *ngFor="let card of  domino?.cards" [card]="card" [isBoard]="true"></card>
+	<div style="background-color: greenyellow;" class="row" *ngIf="domino.players[3]">
+		<player class="col-sm" [player]="domino?.players[3]" [gameId]="domino.id" (onGameUpdate)="onGameUpdate($event)">
+			{{domino.id}}
+		</player>
 	</div>
 </div>
 
