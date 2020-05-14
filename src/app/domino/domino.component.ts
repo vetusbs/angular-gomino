@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import * as uuid from "uuid";
 
@@ -16,6 +16,7 @@ export class DominoComponent implements OnInit {
   domino: Domino;
   checkoutForm: FormGroup;
   createGameForm: FormGroup;
+  @ViewChild('divToMeasure') divToMeasureElement: ElementRef;
 
   // (2) Inject
   constructor(
@@ -35,6 +36,10 @@ export class DominoComponent implements OnInit {
       players: 3
     });
   }
+
+  ngAfterViewInit() {
+    console.log("Hello init", this.divToMeasureElement.nativeElement);
+   }
 
   get currentUser() : string {
     return this.authenticationService.currentUserValue.email;
@@ -124,7 +129,9 @@ export class DominoComponent implements OnInit {
     );
   }
 
-  ngAfterViewChecked() { }
+  ngAfterViewChecked() {
+    console.log("Hello ", this.divToMeasureElement.nativeElement);
+   }
 
   ngOnInit() {
 

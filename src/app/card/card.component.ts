@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from "@angular/core";
 import { Card, Movement } from "../core/domino.model";
 
 const faces = ["", "one", "two", "three", "four", "five", "six"];

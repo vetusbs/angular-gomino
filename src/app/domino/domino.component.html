@@ -36,56 +36,68 @@
 
 
 
-<div *ngIf="domino" class="board container">
+<div class="board container">
 	<div class="row">
 		<button class="btn btn-info col-sm-1" (click)='refreshGame()'>Refresh Game</button>
 		<div class="col-sm-10"></div>
 		<button class="btn btn-info col-sm-1" (click)='quitGame()'>Quit Game</button>
 	</div>
-	<div class="row" style="background-color: greenyellow;">
-		<player class="col-sm" [player]="domino?.players[0]" [gameId]="domino.id" (onGameUpdate)="onGameUpdate($event)">
-			{{domino.id}}
-		</player>
-	</div>
-	<div class="row">
-		<player style="background-color: greenyellow;" class="col-sm-2" [player]="domino?.players[1]" [gameId]="domino.id"
-			(onGameUpdate)="onGameUpdate($event)">
-			{{domino.id}}
-		</player>
-		<div class="col-sm-8" style="background-color: green;">
-			<card *ngFor="let card of  domino?.cards" [card]="card" [isBoard]="true"></card>
-		</div>
-		<player style="background-color: greenyellow;" *ngIf="domino.players[2]" class="col-sm-2" [player]="domino?.players[2]" [gameId]="domino.id"
+	<div class="row" style="background-color: greenyellow; min-height: 100px;">
+		<player *ngIf="domino" class="col-sm" [player]="domino?.players[0]" [gameId]="domino.id"
 			(onGameUpdate)="onGameUpdate($event)">
 			{{domino.id}}
 		</player>
 	</div>
-	<div style="background-color: greenyellow;" class="row" *ngIf="domino.players[3]">
-		<player class="col-sm" [player]="domino?.players[3]" [gameId]="domino.id" (onGameUpdate)="onGameUpdate($event)">
+	<div class="row">
+		<div style="background-color: greenyellow;" class="col-sm-2">
+			<player *ngIf="domino" style="background-color: greenyellow;" [player]="domino?.players[1]"
+				[gameId]="domino.id" (onGameUpdate)="onGameUpdate($event)">
+				{{domino.id}}
+			</player>
+		</div>
+		<div class="col-sm-8">
+			<div class="row" style="background-color: green; min-height: 300px;" #divToMeasure>
+				<card *ngFor="let card of  domino?.cards" [card]="card" [isBoard]="true"></card>
+			</div>
+
+			<div class="sink row">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm">
+							<p>Pick them up when you cannot play</p>
+						</div>
+						<div class="col-sm">
+							<button class="btn btn-danger" (click)="pick()">Cannot play</button>
+						</div>
+						<div class="col-sm">
+							<button class="btn btn-primary" (click)="shuffle()">shuffle</button>
+						</div>
+
+					</div>
+				</div>
+				<div class="container">
+					<div class="row" *ngIf="domino">
+						<upside-card *ngFor="let i of [].constructor(domino?.sink)"
+							(onGameUpdate)="onGameUpdate($event)" (click)="pick()">
+
+						</upside-card>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="background-color: greenyellow; " class="col-sm-2">
+			<player style="background-color: greenyellow;" *ngIf="domino?.players[2]" [player]="domino?.players[2]"
+				[gameId]="domino.id" (onGameUpdate)="onGameUpdate($event)">
+				{{domino.id}}
+			</player>
+		</div>
+	</div>
+	<div style="background-color: greenyellow; min-height: 100px;" class="row">
+		<player *ngIf="domino" class="col-sm" [player]="domino?.players[3]" [gameId]="domino.id"
+			(onGameUpdate)="onGameUpdate($event)">
 			{{domino.id}}
 		</player>
-	</div>
-</div>
-
-<div class="sink container">
-	<div class="row">
-		<div class="col-sm">
-			<p>Pick them up when you cannot play</p>
-		</div>
-		<div class="col-sm">
-			<button class="btn btn-danger" (click)="pick()">Cannot play</button>
-		</div>
-		<div class="col-sm">
-			<button class="btn btn-primary" (click)="shuffle()">shuffle</button>
-		</div>
-
-	</div>
-	<div class="row">
-
-		<upside-card *ngFor="let i of [].constructor(domino?.sink)" (onGameUpdate)="onGameUpdate($event)"
-			(click)="pick()">
-
-		</upside-card>
-
 	</div>
 </div>
